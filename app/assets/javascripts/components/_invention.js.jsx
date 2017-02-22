@@ -26,14 +26,12 @@ export default class Invention extends React.Component{
   }
   bitList(props){
     if (props.inList){
-      console.log('inList')
       return (null)
     }
     else {
       var bit_rows = [];
       this.state.bits.map(
         function(bit){
-          console.log(bit)
           bit_rows.push(<li>{bit.name}</li>)
         }
       )
