@@ -1,5 +1,6 @@
 class Invention < ActiveRecord::Base
   has_and_belongs_to_many :bits
+  has_and_belongs_to_many :other_materials
   # before_save :ensure_invention_uses_bit
 
   # def ensure_invention_uses_bit

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170221213856) do
+ActiveRecord::Schema.define(version: 20170222160228) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -27,6 +27,15 @@ ActiveRecord::Schema.define(version: 20170221213856) do
   create_table "inventions", force: :cascade do |t|
     t.string "title",            limit: 255
     t.text   "description_text"
+  end
+
+  create_table "inventions_other_materials", id: false, force: :cascade do |t|
+    t.integer "invention_id"
+    t.integer "other_material_id"
+  end
+
+  create_table "other_materials", force: :cascade do |t|
+    t.string "name"
   end
 
 end
