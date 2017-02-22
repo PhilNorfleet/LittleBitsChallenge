@@ -15,7 +15,7 @@ gem 'uglifier', '>= 1.3.0'
 # Use CoffeeScript for .js.coffee assets and views
 gem 'coffee-script-source', '>= 1.8'
 gem 'coffee-rails'
-
+gem 'railties', '= 5.0.1'
 # See https://github.com/sstephenson/execjs#readme for more supported runtimes
 gem 'therubyracer', platforms: :ruby
 
@@ -44,6 +44,7 @@ end
 # Use debugger
 # gem 'debugger', group: [:development, :test]
 gem 'responders'
+gem 'browserify-rails'
 # Server-rendering isn't in 0.x, need to grab the 1.x prerelease
 gem 'react-rails', '~> 1.0'
 gem 'rails_12factor', group: :production

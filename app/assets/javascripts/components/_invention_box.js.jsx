@@ -1,4 +1,4 @@
-class InventionBox extends React.Component{
+export default class InventionBox extends React.Component{
 
   render() {
     return (

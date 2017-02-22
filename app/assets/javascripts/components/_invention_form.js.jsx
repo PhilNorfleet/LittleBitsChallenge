@@ -1,4 +1,4 @@
-class InventionForm extends React.Component{
+export default class InventionForm extends React.Component{
    constructor(props) {
     super(props);
     this.state = {invention: props.invention};
@@ -94,23 +94,6 @@ class InventionForm extends React.Component{
     )
   }
 };
-//   render() {
-//     var i = 0;
-//     return (
-//       <form ref="form" className="invention-form" action={ this.props.form.action } acceptCharset="UTF-8" method={this.props.form.type} onSubmit={ this.handleSubmit(event) }>
-//         <p><input type="hidden" name={ this.props.form.csrf_param } value={ this.props.form.csrf_token } /></p>
-//         <p><input type="text" ref="title" name="invention[title]" placeholder="Enter the title of this invention" /></p>
-//         <p><textarea ref="description_text" name="invention[description_text]" placeholder="Describe this invention..." /></p>
-//         <p><select name='bits[]' id='bit-select' ref="bits_used" multiple='true' className="ui fluid dropdown">{
-//           this.props.form.all_bits.map(function(bit){
-//             i++
-//             return <option value={bit.name}>{bit.name}</option>
-//           })
-//         }</select></p>
-//         <p><button type="submit">Submit Invention</button></p>
-//       </form>
-//     )
-//   }
-// };
+
 
 

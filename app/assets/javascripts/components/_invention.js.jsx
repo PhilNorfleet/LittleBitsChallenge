@@ -1,4 +1,5 @@
-class Invention extends React.Component{
+
+export default class Invention extends React.Component{
   constructor(props) {
     super(props);
     this.state = {
@@ -10,7 +11,6 @@ class Invention extends React.Component{
     this.setState({invention: nextProps.invention})
   }
   title() {
-    console.log(this.props)
     if (this.props.inList){
       return(
         <a href={this.props.link}>
@@ -24,19 +24,31 @@ class Invention extends React.Component{
       )
     }
   }
+  bitList(props){
+    if (props.inList){
+      console.log('inList')
+      return (null)
+    }
+    else {
+      var bit_rows = [];
+      this.state.bits.map(
+        function(bit){
+          console.log(bit)
+          bit_rows.push(<li>{bit.name}</li>)
+        }
+      )
+      return bit_rows
+    }
+  }
   render() {
+
     return (
       <div>
         {this.title()}
         <p>{this.state.invention.description_text}</p>
-        {
-          this.props.bits.map(
-            function(bit){
-              console.log(bit)
-              return (<div>{bit.name}</div>)
-            }
-          )
-        }
+        <ul>
+          {this.bitList(this.props)}
+        </ul>
       </div>
     )
   }

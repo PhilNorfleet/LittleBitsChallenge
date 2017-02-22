@@ -1,4 +1,4 @@
-class InventionList extends React.Component{
+export default class InventionList extends React.Component{
   render() {
     var inventionNodes = this.props.inventions.map(function ( invention ) {
       var link = 'inventions/' + invention.id;
