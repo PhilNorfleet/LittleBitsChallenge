@@ -1,0 +1,23 @@
+{
+  "name": "littlebits",
+  "version": "1.0.0",
+  "description": "for littlebits challenge",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "phil norfleet",
+  "license": "ISC",
+  "dependencies": {
+    "react": "^0.14.1",
+    "react-dom": "^0.14.1"
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "'repo'"
+  }
+}

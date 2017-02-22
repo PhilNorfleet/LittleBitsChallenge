@@ -1,0 +1,6 @@
+<%= react_component('Invention',
+                    {:invention => @invention, :imgSrc => image_path("gundam.jpg")},
+                    {:prerender => false}) %>
+<%= react_component('InventionForm',
+                    {:form => @form, :imgSrc => image_path("gundam.jpg")},
+                    {:prerender => false}) %>
