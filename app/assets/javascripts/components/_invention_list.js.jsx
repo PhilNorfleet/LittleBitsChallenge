@@ -1,4 +1,7 @@
 export default class InventionList extends React.Component{
+  handleClick(){
+      window.location.href='/inventions/new'
+  }
   render() {
     var inventionNodes = this.props.inventions.map(function ( invention ) {
       var link = 'inventions/' + invention.id;
@@ -11,7 +14,10 @@ export default class InventionList extends React.Component{
 
     return (
       <div className="invention-list">
+        <button onClick={this.handleClick}>New Invention</button>
         { inventionNodes }
+
+
       </div>
     )
   }

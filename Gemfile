@@ -16,6 +16,9 @@ gem 'uglifier', '>= 1.3.0'
 gem 'coffee-script-source', '>= 1.8'
 gem 'coffee-rails'
 gem 'railties', '= 5.0.1'
+
+#use special bootstrap
+gem 'react-bootstrap-rails'
 # See https://github.com/sstephenson/execjs#readme for more supported runtimes
 gem 'therubyracer', platforms: :ruby
 

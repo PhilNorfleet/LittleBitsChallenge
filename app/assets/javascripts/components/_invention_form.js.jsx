@@ -127,6 +127,9 @@ export default class InventionForm extends React.Component{
     var mat_multi_value = state.mat_multi_value;
     var mat_options = state.mat_options
     var mat_value = state.mat_value
+    console.log(ReactBootstrap)
+    var ButtonGroup = ReactBootstrap.ButtonGroup
+    var Button  = ReactBootstrap.Button;
     return (
       <form className="invention-form" action={ this.props.form.action } acceptCharset="UTF-8" method={this.props.form.type} onSubmit={ this.handleSubmit}>
         <p><input type="hidden" name={ this.props.form.csrf_param } value={ this.props.form.csrf_token } /></p>
@@ -148,11 +151,13 @@ export default class InventionForm extends React.Component{
           shouldKeyDownEventCreateNewOption={this.keyDownTest}
           value={mat_multi ? mat_multi_value : mat_value}
           searchable
-          placeholder="Select at least one mat used in this invention"
+          placeholder="Select other materials from the list or add your own"
           options={mat_options}
           onChange={this.updateMatList}
         />
-        <p><button type="submit" value="Submit">Submit Invention</button></p>
+        <ButtonGroup>
+          <Button bsStyle='primary'>Submit Invention</Button>
+        </ButtonGroup>
       </form>
     )
   }

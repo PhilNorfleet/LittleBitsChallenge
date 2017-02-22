@@ -57,15 +57,11 @@ export default class Invention extends React.Component{
 
     return (
       <div>
-        <p>Title</p>
         {this.title()}
-        <p>Description:</p>
         <p>{this.state.invention.description_text}</p>
-        <p>Bits Used:</p>
         <ul>
           {this.bitList(this.props)}
         </ul>
-        <p>Other Materials:</p>
         <ul>
           {this.otherMaterialsList(this.props)}
         </ul>
