@@ -1,19 +1,26 @@
 import Select from 'react-select';
+import { Creatable } from 'react-select';
 export default class InventionForm extends React.Component{
    constructor(props) {
     super(props);
     this.state = {
       invention: props.invention,
-      options: [],
+      bit_options: [],
       chosen_bits: [],
-      value: undefined,
-      multi: true,
-      multiValue: []
+      bit_value: undefined,
+      bit_multi: true,
+      bit_multi_value: [],
+      mat_options: [],
+      chosen_mats: [],
+      mat_value: undefined,
+      mat_multi: true,
+      mat_multi_value: []
     };
 
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.updateBitList = this.updateBitList.bind(this);
+    this.updateMatList = this.updateMatList.bind(this);
   }
   componentDidMount() {
     this.setSelectOptions();
@@ -21,18 +28,34 @@ export default class InventionForm extends React.Component{
   componentWillReceiveProps(nextProps){
     this.setState({inventions: nextProps.inventions, form: nextProps.form})
   }
-
+  keyDownTest(keycode){
+    switch(keycode.keyCode){
+      case 32: //space
+      case 13: //enter
+      case 188: //comma
+      case 9: //tab
+        return true
+    }
+    return false
+  }
   setSelectOptions(){
-    var options = this.state.options;
+    var bit_options = this.state.bit_options;
+    var mat_options = this.state.mat_options;
     var i = 0;
+    var j = 0;
     this.props.form.all_bits.map(
-
       function(bit){
         i++
-        options.push({value: bit.name, label: bit.name})
+        bit_options.push({value: bit.name, label: bit.name})
       }
     )
-    this.setState({options})
+    this.props.form.all_other_materials.map(
+      function(mat){
+        i++
+        mat_options.push({value: mat.name, label: mat.name})
+      }
+    )
+    this.setState({bit_options, mat_options})
   }
   handleChange(property, event) {
     const invention = this.state.invention;
@@ -41,27 +64,32 @@ export default class InventionForm extends React.Component{
   }
   updateBitList(value){
     console.log(value)
-    var multi = this.state.multi
+    var multi = this.state.bit_multi
     if (multi) {
-      this.setState({multiValue: value},
-        function(){
-          console.log(this.state.multiValue)
-        })
+      this.setState({bit_multi_value: value})
     }
     else {
-      this.setState({value: value},
-        function(){
-          console.log(this.state.multiValue)
-        }
-      )
+      this.setState({bit_value: value})
+    }
+  }
+  updateMatList(value){
+    console.log(value)
+    // debugger
+    var multi = this.state.mat_multi
+    if (multi) {
+      this.setState({mat_multi_value: value})
+    }
+    else {
+      this.setState({mat_value: value})
     }
   }
   handleSubmit( e ) {
     e.preventDefault();
     var title = this.state.invention.title;
-    var description_text = this.state.invention.description_text
-    var bits = this.state.multi ? this.state.multiValue : this.state.value;
-    console.log(title, description_text, bits)
+    var description_text = this.state.invention.description_text;
+    var bits = this.state.bit_multi ? this.state.bit_multi_value : this.state.bit_value;
+    var other_materials = this.state.mat_multi ? this.state.mat_multi_value : this.state.mat_value;
+    console.log(title, description_text, bits, other_materials)
     // validate
     if (!description_text || !title || !bits) {
       return false;
@@ -71,7 +99,8 @@ export default class InventionForm extends React.Component{
         title: title,
         description_text: description_text
       },
-      bits: bits
+      bits: bits,
+      other_materials: other_materials
     }
     console.log(data)
     $.ajax({
@@ -89,26 +118,40 @@ export default class InventionForm extends React.Component{
     });
   }
  render() {
-    var i = 0;
     var state = this.state
-    var multi = state.multi;
-    var multiValue = state.multiValue;
-    var options = state.options
-    var value = state.value
+    var bit_multi = state.bit_multi;
+    var bit_multi_value = state.bit_multi_value;
+    var bit_options = state.bit_options
+    var bit_value = state.bit_value
+    var mat_multi = state.mat_multi;
+    var mat_multi_value = state.mat_multi_value;
+    var mat_options = state.mat_options
+    var mat_value = state.mat_value
     return (
       <form className="invention-form" action={ this.props.form.action } acceptCharset="UTF-8" method={this.props.form.type} onSubmit={ this.handleSubmit}>
         <p><input type="hidden" name={ this.props.form.csrf_param } value={ this.props.form.csrf_token } /></p>
         <p><input type="text" onChange={this.handleChange.bind(this, 'title')} value={this.state.invention.title ? this.state.invention.title : ''} placeholder="Enter the title of this invention" /></p>
         <p><textarea onChange={this.handleChange.bind(this, 'description_text')} value={this.state.invention.description_text ? this.state.invention.description_text : ''} placeholder="Describe this invention..." /></p>
         <Select
-          multi={multi}
-          disabled={this.state.disabled}
+          multi={bit_multi}
           joinValues={true}
-          value={multi ? multiValue : value}
+          value={bit_multi ? bit_multi_value : bit_value}
           searchable
           placeholder="Select at least one Bit used in this invention"
-          options={options}
+          options={bit_options}
           onChange={this.updateBitList} />
+        <Creatable
+          ref="other_materials_select"
+          multi={mat_multi}
+          joinValues={true}
+          delimiter=" "
+          shouldKeyDownEventCreateNewOption={this.keyDownTest}
+          value={mat_multi ? mat_multi_value : mat_value}
+          searchable
+          placeholder="Select at least one mat used in this invention"
+          options={mat_options}
+          onChange={this.updateMatList}
+        />
         <p><button type="submit" value="Submit">Submit Invention</button></p>
       </form>
     )

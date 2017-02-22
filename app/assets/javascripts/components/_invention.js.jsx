@@ -4,7 +4,8 @@ export default class Invention extends React.Component{
     super(props);
     this.state = {
       invention: props.invention,
-      bits: props.bits ? props.bits : null
+      bits: props.bits ? props.bits : null,
+      other_materials: props.other_materials ? props.other_materials : null
     }
   }
   componentWillReceiveProps(nextProps){
@@ -38,14 +39,35 @@ export default class Invention extends React.Component{
       return bit_rows
     }
   }
+  otherMaterialsList(props){
+    if (props.inList){
+      return (null)
+    }
+    else {
+      var mat_rows = [];
+      this.state.other_materials.map(
+        function(mat){
+          mat_rows.push(<li>{mat.name}</li>)
+        }
+      )
+      return mat_rows
+    }
+  }
   render() {
 
     return (
       <div>
+        <p>Title</p>
         {this.title()}
+        <p>Description:</p>
         <p>{this.state.invention.description_text}</p>
+        <p>Bits Used:</p>
         <ul>
           {this.bitList(this.props)}
+        </ul>
+        <p>Other Materials:</p>
+        <ul>
+          {this.otherMaterialsList(this.props)}
         </ul>
       </div>
     )
