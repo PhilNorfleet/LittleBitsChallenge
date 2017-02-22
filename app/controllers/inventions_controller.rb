@@ -41,9 +41,12 @@ class InventionsController < ApplicationController
     params[:bits] ||= []
     bit_names = []
     params[:bits].each do |k, v|
-      bit_names << v[:name]
+      bit_names << v[:value]
     end
     @bits = Bit.where(name: bit_names)
+    puts '---------->'
+    puts @bits
+    puts '<----------'
     @invention = Invention.new(invention_params)
     @invention.bits << @bits
     @invention.save

@@ -10,23 +10,27 @@ export default class BitsField extends React.Component{
       disabled: false,
       searchable: true,
       clearable: true,
+      value: [],
       selectValueName: 'bargraph',
       selectValueLabel: 'bargraph',
-      options: [{name: 'bargraph', label: 'bargraph'}]
+      options: [{name: 'bargraph', label: 'bargraph'}],
+      okToUpdate: true
     }
     this.updateValue = this.updateValue.bind(this);
   }
   componentWillReceiveProps(nextProps) {
     this.setState({options: nextProps.options})
   }
-  updateValue (newValue) {
-
-    this.setState({
-      selectValueName: newValue.name,
-      selectValueLabel: newValue.label
-    });
-    console.log(newValue)
-    this.props.updateBitList(newValue)
+  // shouldComponentUpdate(nextProps, nextState) {
+  //   return false
+  // }
+  updateValue (value) {
+    this.setState({ value });
+    console.log('updateValue')
+    console.log(value)
+    this.props.updateBitList(value)
+    console.log('post updateBitList')
+    console.log(this.state.value)
   }
 
 
@@ -35,13 +39,13 @@ export default class BitsField extends React.Component{
       <div className="section">
         <h3 className="section-heading">{this.props.label}</h3>
         <Select
-          ref="bitSelect"
+          multi
+          joinValues
           options={this.state.options}
           clearable={this.state.clearable}
           name="selected-state"
           disabled={false}
-          label={this.state.selectLabel}
-          value={{name: this.state.selectValueName, label: this.state.selectValueLabel}}
+          value={this.state.value}
           onChange={this.updateValue}
           searchable={this.state.searchable}/>
         <div>{this.state.selectValue}</div>
